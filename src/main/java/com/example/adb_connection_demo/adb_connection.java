@@ -11,7 +11,7 @@ public class adb_connection {
         AndroidDebugBridge.init(false);
 
         // 连接到ADB服务
-        AndroidDebugBridge bridge = AndroidDebugBridge.createBridge("D:/APPOther/ADB/platform-tools/adb", true);
+        AndroidDebugBridge bridge = AndroidDebugBridge.createBridge("D:/adb/platform-tools-latest-windows/platform-tools/adb", true);
 
         // 等待直到ADB服务连接成功
         while (!bridge.hasInitialDeviceList()){
@@ -37,6 +37,9 @@ public class adb_connection {
                 //滑动动作
                 String str = "input swipe 300 500 700 500 100";
                 System.out.println("执行状态: " + connection_demo.exec(device,str));
+
+                String str1 = "exec-out screencap -p > D:/XM1994/image.png";
+                System.out.println("获取屏幕镜像: " + connection_demo.getScreencap(device));
             }catch (Exception e){
                 e.printStackTrace();
             }
