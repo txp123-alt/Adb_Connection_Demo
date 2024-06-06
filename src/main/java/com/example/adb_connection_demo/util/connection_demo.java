@@ -7,6 +7,10 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class connection_demo {
 
@@ -32,6 +36,50 @@ public class connection_demo {
 
         // 获取执行结果
         return shellCommandExecutor.getOutput();
+    };
+
+    //获取屏幕尺寸
+    public static Map<String,Integer> getScreenSize(IDevice device)throws Exception{
+        HashMap<String, Integer> screenSizeMap = new HashMap<>();
+
+        //获取设备ID
+        String serialNumber = getSerialNumber(device);
+        String command = "adb -s " + serialNumber + " shell dumpsys display | grep 'mBaseDisplayInfo='";
+        Process process = Runtime.getRuntime().exec(command);
+        //读取命令输出
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            //System.out.println("Standard Output: " + line);
+            // 使用正则表达式来提取尺寸
+            Pattern pattern = Pattern.compile("real (\\d+) x (\\d+)");
+            Matcher matcher = pattern.matcher(line);
+
+            if (matcher.find()) {
+                int width = Integer.parseInt(matcher.group(1));
+                int height = Integer.parseInt(matcher.group(2));
+                //System.out.println("Width: " + width + ", Height: " + height);
+                screenSizeMap.put("Width",width);
+                screenSizeMap.put("Height",height);
+            } else {
+                System.out.println("No match found for screen size.");
+            }
+        }
+
+        reader.close();
+
+        // 读取标准错误（如果需要）
+        BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+        while ((line = errorReader.readLine()) != null) {
+            System.out.println("Standard Error: " + line);
+        }
+        errorReader.close();
+
+        // 等待命令执行完成
+        int exitCode = process.waitFor();
+        System.out.println("Command exited with code " + exitCode);
+
+        return screenSizeMap;
     };
 
     //获取屏幕截图
