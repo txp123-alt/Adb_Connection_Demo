@@ -9,7 +9,6 @@ import com.android.ddmlib.IDevice;
 public class AdbConnectionDemoApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(AdbConnectionDemoApplication.class, args);
     }
 

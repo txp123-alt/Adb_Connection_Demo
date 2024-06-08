@@ -1,7 +1,6 @@
 package com.example.adb_connection_demo.util;
-import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.IDevice;
-import com.example.adb_connection_demo.executer.ShellCommandExecutor;
+import com.example.adb_connection_demo.resultExecuter.ShellCommandExecutor;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -14,18 +13,32 @@ import java.util.regex.Pattern;
 
 public class connection_demo {
 
-    //获取设备状态
+    /**
+     * 获取设备状态
+     * @param device
+     * @return
+     */
     public static String SystemStatus(IDevice device){
         IDevice.DeviceState state = device.getState();
         return state.toString();
     }
 
-    //获取设备序列号
+    /**
+     * 获取设备序列号
+     * @param iDevice
+     * @return
+     */
     public static String getSerialNumber(IDevice iDevice){
         return iDevice.getSerialNumber();
     };
 
-    //执行指定命令
+    /**
+     * 执行指定命令
+     * @param device
+     * @param command
+     * @return
+     * @throws Exception
+     */
     //滑动命令 adb shell input swipe 300 500 700 500 1000
     //获取屏幕镜像 adb shell screencap -p | adb pull /sdcard/screen.png C:/path/to/save/image.png
     //adb exec-out screencap -p > C:/path/to/save/image.png
@@ -38,7 +51,12 @@ public class connection_demo {
         return shellCommandExecutor.getOutput();
     };
 
-    //获取屏幕尺寸
+    /**
+     * 获取屏幕尺寸
+     * @param device
+     * @return
+     * @throws Exception
+     */
     public static Map<String,Integer> getScreenSize(IDevice device)throws Exception{
         HashMap<String, Integer> screenSizeMap = new HashMap<>();
 
@@ -82,7 +100,12 @@ public class connection_demo {
         return screenSizeMap;
     };
 
-    //获取屏幕截图
+    /**
+     * 获取屏幕截图
+     * @param iDevice
+     * @return
+     * @throws Exception
+     */
     public static Object getScreencap(IDevice iDevice) throws Exception{
 
         //获取设备ID

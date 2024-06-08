@@ -6,7 +6,7 @@ import com.example.adb_connection_demo.util.connection_demo;
 
 import java.util.Random;
 
-public class WS {
+public class video_slide_demo {
 
     public static void main(String[] args) {
         // 初始化AndroidDebugBridge

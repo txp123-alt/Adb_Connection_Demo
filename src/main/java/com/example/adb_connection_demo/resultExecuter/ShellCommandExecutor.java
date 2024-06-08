@@ -1,4 +1,4 @@
-package com.example.adb_connection_demo.executer;
+package com.example.adb_connection_demo.resultExecuter;
 
 import com.android.ddmlib.IShellOutputReceiver;
 
