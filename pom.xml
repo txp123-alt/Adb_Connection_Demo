@@ -75,6 +75,12 @@
             <version>6.2.0.Final</version> <!-- 请检查并使用最新版本 -->
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.12</version> <!-- 使用你需要的版本 -->
+        </dependency>
+
         <!-- 你还需要Validation API的依赖 -->
         <dependency>
             <groupId>javax.validation</groupId>

@@ -52,6 +52,54 @@ public class connection_demo {
     };
 
     /**
+     * 点击动作
+     * @param device
+     * @param Width 坐标
+     * @param Hight 坐标
+     * @return
+     * @throws Exception
+     */
+    public static String execClick(IDevice device, int Width, int Hight) throws Exception{
+        String command = "input tap "+Width+" "+Hight;
+        //操作手机
+        ShellCommandExecutor shellCommandExecutor = new ShellCommandExecutor();
+        device.executeShellCommand(command,shellCommandExecutor);
+
+        // 获取执行结果
+        return shellCommandExecutor.getOutput();
+    };
+
+    /**
+     * 滑动动作
+     * @param device
+     * @param startIndexX 坐标
+     * @param startIndexY 坐标
+     * @param endIndexX 坐标
+     * @param endIndexY 坐标
+     * @return  String str = "input swipe 500 2000 600 1600 150";
+     */
+    public static String execSlide(IDevice device, int startIndexX, int startIndexY, int endIndexX, int endIndexY, int sustainTime) throws Exception {
+
+        String command = "input swipe "+startIndexX+" "+startIndexY+" "+endIndexX+" "+endIndexY+" "+sustainTime;
+        //操作手机
+        ShellCommandExecutor shellCommandExecutor = new ShellCommandExecutor();
+        device.executeShellCommand(command,shellCommandExecutor);
+
+        // 获取执行结果
+        return shellCommandExecutor.getOutput();
+    }
+
+    public static String execGoHome(IDevice device)throws Exception {
+        String command = "input keyevent KEYCODE_HOME";
+        //操作手机
+        ShellCommandExecutor shellCommandExecutor = new ShellCommandExecutor();
+        device.executeShellCommand(command,shellCommandExecutor);
+
+        // 获取执行结果
+        return shellCommandExecutor.getOutput();
+    }
+
+    /**
      * 获取屏幕尺寸
      * @param device
      * @return
@@ -106,7 +154,7 @@ public class connection_demo {
      * @return
      * @throws Exception
      */
-    public static Object getScreencap(IDevice iDevice) throws Exception{
+    public static InputStream getScreencap(IDevice iDevice) throws Exception{
 
         //获取设备ID
         String serialNumber = getSerialNumber(iDevice);
@@ -115,30 +163,10 @@ public class connection_demo {
         // 调用adb命令，例如使用exec-out获取设备屏幕截图
         String command = "adb -s " + serialNumber + " exec-out screencap -p";
         Process process = Runtime.getRuntime().exec(command);
-
-        // 读取命令输出
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//        String line;
-//        while ((line = reader.readLine())!= null) {
-//            // 处理每一行输出，例如写入文件或进行其他操作
-//            System.out.println(line);
-//        }
-
-        // 将命令输出重定向到文件
+        //获取输出流
         InputStream inputStream = process.getInputStream();
-        FileOutputStream outputStream = new FileOutputStream("D:/XM1994/screen_" + serialNumber + ".png");
-
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
-        }
-
-        outputStream.close();
         inputStream.close();
 
-        int exitCode = process.waitFor();
-        System.out.println("@--"+exitCode);
-        return null;
+        return inputStream;
     }
 }

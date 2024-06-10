@@ -9,11 +9,16 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 public class Interactive {
+    /**
+     * 设备序列号
+     */
+    @NotEmpty
+    private String deviceSerialNo;
 
     /**
      * 匹配率
      */
-    @NotEmpty
+//    @NotEmpty
     private Long matchingRate;
 
     /**
@@ -30,5 +35,15 @@ public class Interactive {
 
     private int EndIndex_X;
     private int EndIndex_Y;
+
+    /**
+     * 执行状态码
+     */
+    private int status;
+
+    /**
+     * 响应消息、异常消息
+     */
+    private String msg;
 
 }
