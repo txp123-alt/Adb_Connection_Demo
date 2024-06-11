@@ -2,10 +2,7 @@ package com.example.adb_connection_demo.util;
 import com.android.ddmlib.IDevice;
 import com.example.adb_connection_demo.resultExecuter.ShellCommandExecutor;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -162,10 +159,12 @@ public class connection_demo {
 
         // 调用adb命令，例如使用exec-out获取设备屏幕截图
         String command = "adb -s " + serialNumber + " exec-out screencap -p";
+//        String command = "adb -s " + serialNumber + " shell screencap -p";
         Process process = Runtime.getRuntime().exec(command);
+
         //获取输出流
         InputStream inputStream = process.getInputStream();
-        inputStream.close();
+        //inputStream.close();
 
         return inputStream;
     }
