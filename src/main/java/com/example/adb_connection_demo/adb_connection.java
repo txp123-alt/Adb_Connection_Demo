@@ -13,9 +13,9 @@ public class adb_connection {
         AndroidDebugBridge.init(false);
 
         // 连接到ADB服务(家)
-        AndroidDebugBridge bridge = AndroidDebugBridge.createBridge("D:/APPOther/ADB/platform-tools/adb", true);
+//        AndroidDebugBridge bridge = AndroidDebugBridge.createBridge("D:/APPOther/ADB/platform-tools/adb", true);
         //公司
-        //AndroidDebugBridge bridge = AndroidDebugBridge.createBridge("D:/adb/platform-tools-latest-windows/platform-tools/adb", true);
+        AndroidDebugBridge bridge = AndroidDebugBridge.createBridge("D:/adb/platform-tools-latest-windows/platform-tools/adb", true);
 
         // 等待直到ADB服务连接成功
         while (!bridge.hasInitialDeviceList()){
