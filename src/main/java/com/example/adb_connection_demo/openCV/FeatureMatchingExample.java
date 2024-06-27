@@ -9,6 +9,7 @@ import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -119,16 +120,23 @@ public class FeatureMatchingExample {
     }
 
     private static void showWindow(Mat mat) {
-        String windowName = "Display Image";
-        HighGui.namedWindow(windowName, HighGui.WINDOW_NORMAL); // 可以调整窗口大小
 
-        // 显示图像
-        HighGui.imshow(windowName, mat);
+        if (GraphicsEnvironment.isHeadless()) {
+            // 当前环境是无头的，不执行图形操作
+            System.out.println("This is a headless environment. No GUI operations will be performed.");
+        } else {
+            // 创建图形界面组件...
+            String windowName = "Display Image";
+            HighGui.namedWindow(windowName, HighGui.WINDOW_NORMAL); // 可以调整窗口大小
 
-        // 等待用户按键，然后关闭窗口
-        HighGui.waitKey(0); // 0表示无限等待，直到有按键事件
+            // 显示图像
+            HighGui.imshow(windowName, mat);
 
-        // 销毁窗口
-        HighGui.destroyAllWindows();
+            // 等待用户按键，然后关闭窗口
+            HighGui.waitKey(0); // 0表示无限等待，直到有按键事件
+
+            // 销毁窗口
+            HighGui.destroyAllWindows();
+        }
     }
 }
