@@ -16,6 +16,8 @@ import java.util.List;
 
 public class FeatureMatchingExample {
     static {
+        //如果在win10下图像展示不出来，就加上这句
+        //System.setProperty("java.awt.headless","false");
         //System.out.println(Core.NATIVE_LIBRARY_NAME);
         //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         System.load("D:/opencv/opencv3.x/opencv/build/java/x64/opencv_java3416.dll");
