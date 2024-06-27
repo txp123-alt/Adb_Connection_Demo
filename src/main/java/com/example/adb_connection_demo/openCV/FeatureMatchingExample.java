@@ -10,6 +10,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.awt.*;
+import java.awt.Point;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -84,6 +85,14 @@ public class FeatureMatchingExample {
             MatOfDMatch bestMatchesMat = new MatOfDMatch();
             bestMatchesMat.fromList(bestMatches);
 
+            //打印坐标
+            // 访问匹配的坐标点
+            List<KeyPoint> keyPoints1 = matOfKeyPoint1.toList();
+            List<KeyPoint> keyPoints2 = matOfKeyPoint2.toList();
+
+            //打印前10个坐标
+            print_point(bestMatches, keyPoints1, keyPoints2);
+
             // 现在你可以使用bestMatchesMat进行后续操作
             //绘制匹配结果
             Mat imgMat = new Mat();
@@ -95,6 +104,8 @@ public class FeatureMatchingExample {
             // 如果没有足够的匹配结果，你可以处理这种情况
             System.out.println("未能有足够的匹配点");
         }
+
+
 
         // 可选：按距离排序匹配项
 //        List<DMatch> matchesList = matOfDMatch.toList();
@@ -111,6 +122,16 @@ public class FeatureMatchingExample {
 
 
 
+    }
+
+    private static void print_point(List<DMatch> bestMatches, List<KeyPoint> keyPoints1, List<KeyPoint> keyPoints2) {
+        for (DMatch match : bestMatches) {
+            KeyPoint queryPoint = keyPoints1.get(match.queryIdx);
+            KeyPoint trainPoint = keyPoints2.get(match.trainIdx);
+
+            // 现在你可以使用这些坐标点进行进一步的处理或显示
+            System.out.println("Query Point: " + queryPoint.pt + ", Train Point: " + trainPoint.pt);
+        }
     }
 
     private static void keyPoint(Mat imread1, MatOfKeyPoint matOfKeyPoint) {
